@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>bgLazyLoad Example</title>
+
+    <style>
+	body { max-width:500px; margin:0 auto; }
+    .lazyNode { height: 100px; padding:40px; border: 1px solid #ddd; margin: 20px 0;}
+    </style>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+    <script src="lazyLoad.jquery.js" type="text/javascript"></script>
+    <script>
+		// instantiate a lazyLoad object
+		var lazyObject = new bgLazyLoad({
+				  name : 'lazyNode',
+				  foldDistance : 20,
+				  fn : function (node) {  
+					var   $node = $(node)
+						, $container = $node.parent()
+						, index = $container.find('.lazyNode').length+1
+						, $newNode = $('<div class="lazyNode">Here is node #'+index+'</div>')
+						;
+					$newNode.appendTo($container);
+					lazyObject.lazyload();
+				}
+		  });
+		
+		// turn on lazy load when DOM is ready
+		$(function() { lazyObject.lazyload(); });
+    </script>
+    </head>
+    
+    <body>
+        <h2>This page dynamically adds nodes</h2>
+        <div>
+            <div class="lazyNode">Here is the first lazy node</div>
+        </div>
+	</body>
+</html>
